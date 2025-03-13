@@ -21,6 +21,12 @@ public class Main extends Application {
         launch();
     }
 
+    /**
+     * Loads the given page from its fxml file and updates the primary stage to display it.
+     * If the given page could not be found, the method will silently fail.
+     *
+     * @param page the full name of the page's fxml file under the `resources/` directory
+     */
     public static void switchPage(String page) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(page));
