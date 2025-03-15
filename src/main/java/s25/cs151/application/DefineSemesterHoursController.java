@@ -70,6 +70,11 @@ public class DefineSemesterHoursController
             this.errorHint.setText("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
             this.errorHint.setStyle("-fx-text-fill: red;");
             return;
+        } else {
+            // WIP: Show prompt that form IS valid
+            this.errorHint.setVisible(true);
+            this.errorHint.setText("Success: Semester Hours Defined Successfully!");
+            this.errorHint.setStyle("-fx-text-fill: green;");
         }
 
         // TODO: Implement saving!
