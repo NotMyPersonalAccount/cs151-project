@@ -9,7 +9,7 @@
       <VBox fx:id="formBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
       <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <Label fx:id="errorHint" text="The form has invalid values" visible="false" />
+            <Label fx:id="errorHint" visible="false" />
          </children>
          <padding>
             <Insets right="20.0" />
