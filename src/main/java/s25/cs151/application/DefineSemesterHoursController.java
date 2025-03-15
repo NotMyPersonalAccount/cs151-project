@@ -8,12 +8,12 @@ import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
-
-import java.time.Year;
-import java.util.Arrays;
+import s25.cs151.application.model.SemesterHours;
 
 public class DefineSemesterHoursController
 {
+    private SemesterHours semesterHours;
+
     @FXML
     private VBox formBox;
 
@@ -22,14 +22,18 @@ public class DefineSemesterHoursController
      */
     @FXML
     public void initialize() {
+        // Initialize model for this form
+        this.semesterHours = new SemesterHours();
+
         // Create the FormsFX form
         Form form = Form.of(
             Group.of(
-                    Field.ofSingleSelectionType(Arrays.asList("Spring", "Summer", "Fall", "Winter"), 0).label("Semester"),
-                    Field.ofIntegerType(Year.now().getValue())
+                    Field.ofSingleSelectionType(this.semesterHours.allSeasons, this.semesterHours.semester)
+                            .label("Semester"),
+                    Field.ofIntegerType(this.semesterHours.year)
                             .validate( IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
                             .label("Year"),
-                    Field.ofMultiSelectionType(Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"))
+                    Field.ofMultiSelectionType(this.semesterHours.allDays, this.semesterHours.days)
                             .label("Days")
                             .required("At least one day must be selected")
                             .render(new SimpleCheckBoxControl<>())
