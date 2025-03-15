@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import s25.cs151.application.model.SemesterHours;
 
+import java.util.ArrayList;
+
 public class DefineSemesterHoursController
 {
     private Form form;
@@ -58,6 +60,14 @@ public class DefineSemesterHoursController
         if (!this.form.isValid()) {
             // Show hint that form is not valid
             this.errorHint.setVisible(true);
+            // Figure out which fields are invalid and display it
+            ArrayList<String> invalidFields = new ArrayList<>();
+            this.form.getFields().forEach(field -> {
+               if (!field.isValid()) {
+                   invalidFields.add(field.getLabel());
+               }
+            });
+            this.errorHint.setText("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
             return;
         }
 
