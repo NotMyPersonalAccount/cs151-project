@@ -30,8 +30,14 @@ public class Main extends Application {
     public static void switchPage(String page) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(page));
-            Scene scene = new Scene(fxmlLoader.load(), 1080, 720);
-            appStage.setScene(scene);
+            Scene scene = appStage.getScene();
+
+            // Create and set scene if one does not yet exist. Otherwise, update the existing scene.
+            if (scene == null) {
+                appStage.setScene(new Scene(fxmlLoader.load(), 1080, 720));
+                return;
+            }
+            scene.setRoot(fxmlLoader.load());
         } catch (Exception e) {
             // NOOP
         }
