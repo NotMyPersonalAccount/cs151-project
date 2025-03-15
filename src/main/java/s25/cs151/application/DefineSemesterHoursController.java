@@ -68,6 +68,7 @@ public class DefineSemesterHoursController
                }
             });
             this.errorHint.setText("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
+            this.errorHint.setStyle("-fx-text-fill: red;");
             return;
         }
 
