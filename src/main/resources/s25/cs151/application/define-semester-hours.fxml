@@ -6,6 +6,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.DefineSemesterHoursController">
    <children>
+      <Label style="-fx-font-size: 24px; -fx-text-fill: #333333;" text="Define Semester Hours" />
       <VBox fx:id="formBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
       <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0">
          <children>
