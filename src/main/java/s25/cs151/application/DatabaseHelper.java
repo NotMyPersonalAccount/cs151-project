@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:bookie_professor.db";
 
+    /**
+     * Initializes all tables in the database.
+     * @throws SQLException Thrown if query fails for any reason.
+     */
     public static void initialize() throws SQLException {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
@@ -24,6 +28,12 @@ public class DatabaseHelper {
         }
     }
 
+    /**
+     * Insert a semester hour into the database.
+     * @param semesterHours The semester hours to save.
+     * @throws SQLException Thrown if query fails for any reason, including if a row already exists with the
+     *                      semester + year combination.
+     */
     public static void insertSemesterHours(SemesterHours semesterHours) throws SQLException {
         String insertQuery = "INSERT INTO semester_hours (semester, year, days) VALUES (?, ?, ?)";
         try (
@@ -37,6 +47,10 @@ public class DatabaseHelper {
         }
     }
 
+    /**
+     * Loads semester hours from the database, sorted by semester and year with most recent first.
+     * @return a list of SemesterHours, or an empty list if the query fails.
+     */
     public static List<SemesterHours> getAllSemesterHours() {
         List<SemesterHours> allSemesterHours = new ArrayList<>();
 
