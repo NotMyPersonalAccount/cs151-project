@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 
 import java.time.Year;
+import java.util.List;
 
 public class SemesterHours {
     public final ListProperty<String> allSeasons = new SimpleListProperty<>(FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter"));
@@ -13,4 +14,24 @@ public class SemesterHours {
 
     public final ListProperty<String> allDays = new SimpleListProperty<>(FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"));
     public final ListProperty<String> days = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    public SemesterHours() {}
+
+    public SemesterHours(String semester, int year, String[] days) {
+        this.semester.set(semester);
+        this.year.set(year);
+        this.days.setAll(days);
+    }
+
+    public String getSemester() {
+        return this.semester.get();
+    }
+
+    public int getYear() {
+        return this.year.get();
+    }
+
+    public List<String> getDays() {
+        return this.days.get();
+    }
 }

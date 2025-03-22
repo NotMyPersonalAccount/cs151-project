@@ -63,11 +63,7 @@ public class DatabaseHelper {
                 int year = rs.getInt("year");
                 String days = rs.getString("days");
 
-                SemesterHours semesterHours = new SemesterHours();
-                semesterHours.semester.setValue(semester);
-                semesterHours.year.setValue(year);
-                semesterHours.days.setValue(FXCollections.observableArrayList(days.split(",")));
-
+                SemesterHours semesterHours = new SemesterHours(semester, year, days.split(","));
                 allSemesterHours.add(semesterHours);
             }
         } catch (SQLException e) {
