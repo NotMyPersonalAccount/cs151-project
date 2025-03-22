@@ -9,6 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s25.cs151.application.model.SemesterHours;
 
+import java.util.Map;
+
 public class SemesterHoursTableController {
     @FXML
     protected TableView<SemesterHours> table;
@@ -35,6 +37,12 @@ public class SemesterHoursTableController {
                 days.setValue(String.join(", ", newValue));
             });
             return days;
+        });
+
+        // Set the sorting order of the semester column
+        this.semester.setComparator((a, b) -> {
+            Map<String, Integer> order = Map.of("Spring", 0, "Summer", 1, "Fall", 2, "Winter", 3);
+            return order.get(a).compareTo(order.get(b));
         });
 
         // Set items in the table.
