@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import s25.cs151.application.model.SemesterHours;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DefineSemesterHoursController
@@ -68,8 +69,7 @@ public class DefineSemesterHoursController
     @FXML
     public void onSubmitClicked() {
         if (!this.form.isValid()) {
-            this.errorHint.setVisible(true);
-            // Figure out which fields are invalid.
+            // Figure out which fields are invalid and display an error.
             ArrayList<String> invalidFields = new ArrayList<>();
             this.form.getFields().forEach(field -> {
                if (!field.isValid()) {
@@ -78,17 +78,13 @@ public class DefineSemesterHoursController
             });
             this.showError("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
             return;
-        } else {
-            // WIP: Show prompt that form IS valid
-            this.errorHint.setVisible(true);
-            this.errorHint.setText("Success: Semester Hours Defined Successfully!");
-            this.errorHint.setStyle("-fx-text-fill: green;");
         }
 
-        // TODO: Implement saving!
-        System.out.println(this.semesterHours.semester.get());
-        System.out.println(this.semesterHours.year.get());
-        System.out.println(this.semesterHours.days.get());
-        Main.switchPage("main-view.fxml");
+        try {
+            DatabaseHelper.insertSemesterHours(this.semesterHours);
+            Main.switchPage("main-view.fxml");
+        } catch (SQLException e) {
+            this.showError("An unknown error occurred.");
+        }
     }
 }

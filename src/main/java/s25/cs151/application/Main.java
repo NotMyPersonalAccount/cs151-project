@@ -5,12 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Main extends Application {
     private static Stage appStage;
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws SQLException {
         appStage = stage;
+
+        // Initialize database on app launch.
+        DatabaseHelper.initialize();
 
         stage.setTitle("BookieProfessor");
         switchPage("main-view.fxml");
