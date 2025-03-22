@@ -54,10 +54,18 @@ public class DatabaseHelper {
     public static List<SemesterHours> getAllSemesterHours() {
         List<SemesterHours> allSemesterHours = new ArrayList<>();
 
-        String sql = "SELECT * FROM semester_hours ORDER BY year DESC, semester DESC";
+        String query =
+                "SELECT * FROM semester_hours ORDER BY year DESC," +
+                "   CASE semester" +
+                "       WHEN 'Spring' THEN 3" +
+                "       WHEN 'Summer' THEN 2" +
+                "       WHEN 'Fall' THEN 1" +
+                "       WHEN 'Winter' THEN 0" +
+                "   END ";
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 String semester = rs.getString("semester");
                 int year = rs.getInt("year");
