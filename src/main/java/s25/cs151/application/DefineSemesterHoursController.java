@@ -50,6 +50,16 @@ public class DefineSemesterHoursController
         formBox.getChildren().add(new FormRenderer(this.form));
     }
 
+    /**
+     * Displays an error message at the bottom of the page.
+     * @param error The error message.
+     */
+    protected void showError(String error) {
+        this.errorHint.setVisible(true);
+        this.errorHint.setText(error);
+        this.errorHint.setStyle("-fx-text-fill: red;");
+    }
+
     @FXML
     public void onCancelClicked() {
         Main.switchPage("main-view.fxml");
@@ -58,17 +68,15 @@ public class DefineSemesterHoursController
     @FXML
     public void onSubmitClicked() {
         if (!this.form.isValid()) {
-            // Show hint that form is not valid
             this.errorHint.setVisible(true);
-            // Figure out which fields are invalid and display it
+            // Figure out which fields are invalid.
             ArrayList<String> invalidFields = new ArrayList<>();
             this.form.getFields().forEach(field -> {
                if (!field.isValid()) {
                    invalidFields.add(field.getLabel());
                }
             });
-            this.errorHint.setText("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
-            this.errorHint.setStyle("-fx-text-fill: red;");
+            this.showError("The form has invalid values and can not be submitted: " + String.join(", ", invalidFields));
             return;
         } else {
             // WIP: Show prompt that form IS valid
