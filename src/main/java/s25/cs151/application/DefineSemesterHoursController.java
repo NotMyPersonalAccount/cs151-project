@@ -89,6 +89,11 @@ public class DefineSemesterHoursController
             DatabaseHelper.insertSemesterHours(this.semesterHours);
             Main.switchPage("main-view.fxml");
         } catch (SQLException e) {
+            // SQLite error code 19 is constraint failed (in this case, because of primary key uniqueness).
+            if (e.getErrorCode() == 19) {
+                this.showError("Semester hours already exist for this semester/year combination.");
+                return;
+            }
             this.showError("An unknown error occurred.");
         }
     }
