@@ -61,7 +61,7 @@ public class DatabaseHelper {
     public static List<SemesterTimeSlot> getAllSemesterTimeSlots() {
         List<SemesterTimeSlot> allSemesterTimeSlots = new ArrayList<>();
 
-        String query = "SELECT * FROM semester_time_slots";
+        String query = "SELECT * FROM semester_time_slots ORDER BY from_time, to_time";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
