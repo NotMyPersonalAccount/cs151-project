@@ -19,6 +19,12 @@
         </children>
       </FlowPane>
       <fx:include source="semester-hours-table.fxml" />
+      <FlowPane hgap="20.0" prefWidth="200.0">
+        <children>
+          <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Semester Time Slots" />
+          <Button onAction="#onDefineSemesterTimeSlotsClick" text="Define Semester Time Slots" />
+        </children>
+      </FlowPane>
     </VBox>
   </content>
 </ScrollPane>

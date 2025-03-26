@@ -7,4 +7,9 @@ public class MainController {
     protected void onDefineSemesterHoursClick() {
         Main.switchPage("define-semester-hours.fxml");
     }
+
+    @FXML
+    protected void onDefineSemesterTimeSlotsClick() {
+        Main.switchPage("define-semester-time-slots.fxml");
+    }
 }
