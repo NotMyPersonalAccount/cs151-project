@@ -4,12 +4,14 @@ import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import javafx.fxml.FXML;
 import s25.cs151.application.form.TimeField;
-import s25.cs151.application.model.SemesterTimeSlots;
+import s25.cs151.application.model.SemesterTimeSlot;
+
+import java.sql.SQLException;
 
 public class DefineSemesterTimeSlotsController
 {
     private Form form;
-    private SemesterTimeSlots semesterTimeSlots;
+    private SemesterTimeSlot semesterTimeSlots;
 
     @FXML
     private BasicDefinePage page;
@@ -20,7 +22,7 @@ public class DefineSemesterTimeSlotsController
     @FXML
     public void initialize() {
         // Initialize model for the form
-        this.semesterTimeSlots = new SemesterTimeSlots();
+        this.semesterTimeSlots = new SemesterTimeSlot();
 
         // Create the FormsFX form
         this.form = Form.of(
@@ -34,7 +36,11 @@ public class DefineSemesterTimeSlotsController
     }
 
     public void onSubmit() {
-        System.out.println(this.semesterTimeSlots.from);
-        System.out.println(this.semesterTimeSlots.to);
+        try {
+            DatabaseHelper.insertSemesterTimeSlot(this.semesterTimeSlots);
+            Main.switchPage("main-view.fxml");
+        } catch (SQLException e) {
+            this.page.showError("An unknown error occurred.");
+        }
     }
 }

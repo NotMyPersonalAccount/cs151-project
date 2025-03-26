@@ -1,9 +1,11 @@
 package s25.cs151.application;
 
-import javafx.collections.FXCollections;
 import s25.cs151.application.model.SemesterHours;
+import s25.cs151.application.model.SemesterTimeSlot;
 
 import java.sql.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -25,7 +27,59 @@ public class DatabaseHelper {
                     "   PRIMARY KEY (semester, year)" +
                     ")";
             stmt.execute(initSemesterHoursQuery);
+
+            String initSemesterTimeSlots =
+                    "CREATE TABLE IF NOT EXISTS semester_time_slots (" +
+                    "   id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "   from_time TEXT," +
+                    "   to_time TEXT" +
+                    ")";
+            stmt.execute(initSemesterTimeSlots);
         }
+    }
+
+    /**
+     * Inserts a semester time slot into the database
+     */
+    public static void insertSemesterTimeSlot(SemesterTimeSlot semesterTimeSlots) throws SQLException{
+        String insertQuery = "INSERT INTO semester_time_slots (from_time, to_time) VALUES (?, ?)";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(insertQuery)
+        ) {
+            stmt.setString(1, semesterTimeSlots.from.getValue().format(dateFormat));
+            stmt.setString(2, semesterTimeSlots.to.getValue().format(dateFormat));
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Loads semester time slots from the database.
+     * @return a list of SemesterTimeSlot, or an empty list if the query fails.
+     */
+    public static List<SemesterTimeSlot> getAllSemesterTimeSlots() {
+        List<SemesterTimeSlot> allSemesterTimeSlots = new ArrayList<>();
+
+        String query = "SELECT * FROM semester_time_slots";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                LocalTime from = LocalTime.parse(rs.getString("from_time"), dateFormat);
+                LocalTime to = LocalTime.parse(rs.getString("to_time"), dateFormat);
+
+                SemesterTimeSlot semesterTimeSlot = new SemesterTimeSlot(id, from, to);
+                allSemesterTimeSlots.add(semesterTimeSlot);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allSemesterTimeSlots;
     }
 
     /**
