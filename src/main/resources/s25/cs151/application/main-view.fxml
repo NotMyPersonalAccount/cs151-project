@@ -25,6 +25,7 @@
           <Button onAction="#onDefineSemesterTimeSlotsClick" text="Define Semester Time Slots" />
         </children>
       </FlowPane>
+      <fx:include source="semester-time-slots-table.fxml" />
     </VBox>
   </content>
 </ScrollPane>
