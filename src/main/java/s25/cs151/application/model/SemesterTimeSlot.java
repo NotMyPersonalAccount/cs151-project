@@ -21,4 +21,12 @@ public class SemesterTimeSlot {
     public int getId() {
         return this.id;
     }
+
+    public LocalTime getFrom() {
+        return this.from.get();
+    }
+
+    public LocalTime getTo() {
+        return this.to.get();
+    }
 }
