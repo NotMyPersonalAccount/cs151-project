@@ -1,5 +1,6 @@
 package s25.cs151.application;
 
+import s25.cs151.application.model.Course;
 import s25.cs151.application.model.SemesterHours;
 import s25.cs151.application.model.SemesterTimeSlot;
 
@@ -35,6 +36,15 @@ public class DatabaseHelper {
                     "   to_time TEXT" +
                     ")";
             stmt.execute(initSemesterTimeSlots);
+
+            String initCoursesQuery =
+                    "CREATE TABLE IF NOT EXISTS courses (" +
+                    "   course_code TEXT NOT NULL," +
+                    "   course_name TEXT NOT NULL," +
+                    "   section_number TEXT NOT NULL," +
+                    "   PRIMARY KEY (course_code, course_name, section_number)" +
+                    ")";
+            stmt.execute(initCoursesQuery);
         }
     }
 
@@ -133,6 +143,20 @@ public class DatabaseHelper {
         }
 
         return allSemesterHours;
+    }
+
+    /**
+     * Inserts a course into the database
+     */
+    public static void insertCourse(Course course) throws SQLException {
+        String insertQuery = "INSERT INTO courses (course_code, course_name, section_number) VALUES (?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+            stmt.setString(1, course.getCourseCode());
+            stmt.setString(2, course.getCourseName());
+            stmt.setString(3, course.getSectionNumber());
+            stmt.executeUpdate();
+        }
     }
 }
 

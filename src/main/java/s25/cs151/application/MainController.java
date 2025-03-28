@@ -12,4 +12,9 @@ public class MainController {
     protected void onDefineSemesterTimeSlotsClick() {
         Main.switchPage("define-semester-time-slots.fxml");
     }
+
+    @FXML
+    protected void onDefineCoursesClick() {
+        Main.switchPage("define-courses.fxml");
+    }
 }
