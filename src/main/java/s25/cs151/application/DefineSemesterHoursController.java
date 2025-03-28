@@ -3,14 +3,13 @@ package s25.cs151.application;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
-import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.IntegerRangeValidator;
 import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
 import javafx.fxml.FXML;
 import s25.cs151.application.model.SemesterHours;
 
 import java.sql.SQLException;
-import java.time.Year;
 
 public class DefineSemesterHoursController
 {
@@ -28,23 +27,20 @@ public class DefineSemesterHoursController
         // Initialize model for the form
         this.semesterHours = new SemesterHours();
 
-        // `Field.ofIntegerType` does not appear to correctly bind its value property to the passed property.
-        IntegerField yearField = Field.ofIntegerType(Year.now().getValue())
-                .validate( IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
-                .label("Year");
-        this.semesterHours.year.bind(yearField.valueProperty());
         // Create the FormsFX form
         this.form = Form.of(
             Group.of(
                     Field.ofSingleSelectionType(this.semesterHours.allSeasons, this.semesterHours.semester)
                             .label("Semester"),
-                    yearField,
+                    Field.ofIntegerType(this.semesterHours.year)
+                            .validate( IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
+                            .label("Year"),
                     Field.ofMultiSelectionType(this.semesterHours.allDays, this.semesterHours.days)
                             .label("Days")
                             .required("At least one day must be selected")
                             .render(new SimpleCheckBoxControl<>())
             )
-        ).title("Define Semester Hours");
+        ).title("Define Semester Hours").binding(BindingMode.CONTINUOUS);
         this.page.setForm(this.form);
         this.page.setOnSubmit(this::onSubmit);
     }

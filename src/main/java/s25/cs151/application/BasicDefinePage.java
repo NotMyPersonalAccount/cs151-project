@@ -41,12 +41,8 @@ public class BasicDefinePage extends ScrollPane {
         }
 
         // Handle button actions
-        this.cancelButton.setOnAction(_ -> {
-            this.onCancelClicked();
-        });
-        this.submitButton.setOnAction(_ -> {
-            this.onSubmitClicked();
-        });
+        this.cancelButton.setOnAction(_ -> this.onCancelClicked());
+        this.submitButton.setOnAction(_ -> this.onSubmitClicked());
     }
 
     protected void onCancelClicked() {

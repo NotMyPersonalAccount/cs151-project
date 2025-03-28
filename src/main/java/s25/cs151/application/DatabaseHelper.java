@@ -58,8 +58,8 @@ public class DatabaseHelper {
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(insertQuery)
         ) {
-            stmt.setString(1, semesterTimeSlots.from.getValue().format(dateFormat));
-            stmt.setString(2, semesterTimeSlots.to.getValue().format(dateFormat));
+            stmt.setString(1, semesterTimeSlots.getFrom().format(dateFormat));
+            stmt.setString(2, semesterTimeSlots.getTo().format(dateFormat));
             stmt.executeUpdate();
         }
     }
@@ -104,9 +104,9 @@ public class DatabaseHelper {
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(insertQuery)
         ) {
-            stmt.setString(1, semesterHours.semester.getValue());
-            stmt.setInt(2, semesterHours.year.getValue());
-            stmt.setString(3, String.join(",", semesterHours.days.getValue()));
+            stmt.setString(1, semesterHours.getSemester());
+            stmt.setInt(2, semesterHours.getYear());
+            stmt.setString(3, String.join(",", semesterHours.getDays()));
             stmt.executeUpdate();
         }
     }
