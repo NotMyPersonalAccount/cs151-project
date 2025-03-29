@@ -158,5 +158,24 @@ public class DatabaseHelper {
             stmt.executeUpdate();
         }
     }
+
+    public static List<Course> getAllCourses() throws SQLException {
+    List<Course> courses = new ArrayList<>();
+    String query = "SELECT course_code, course_name, section_number FROM courses";
+    try (Connection conn = connect();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            Course c = new Course();
+            c.setCourseCode(rs.getString("course_code"));
+            c.setCourseName(rs.getString("course_name"));
+            c.setSectionNumber(rs.getString("section_number"));
+            courses.add(c);
+        }
+    }
+    return courses;
+}
+
 }
 
