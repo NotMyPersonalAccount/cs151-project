@@ -158,5 +158,31 @@ public class DatabaseHelper {
             stmt.executeUpdate();
         }
     }
+
+    /**
+     * Loads courses from the database, sorted by course code in descending order.
+     * @return a list of Course, or an empty list if the query fails.
+     */
+    public static List<Course> getAllCourses() {
+        List<Course> allCourses = new ArrayList<>();
+
+        String query = "SELECT * FROM courses ORDER BY course_code DESC";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String courseCode = rs.getString("course_code");
+                String courseName = rs.getString("course_name");
+                String sectionNumber = rs.getString("section_number");
+
+                Course course = new Course(courseCode, courseName, sectionNumber);
+                allCourses.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allCourses;
+    }
 }
 

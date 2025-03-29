@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.CoursesTableController">
+    <columns>
+        <TableColumn fx:id="courseCode" prefWidth="150.0" text="Course Code" />
+        <TableColumn fx:id="courseName" prefWidth="300.0" text="Course Name" />
+        <TableColumn fx:id="sectionNumber" prefWidth="150.0" text="Section Number" />
+    </columns>
+</TableView>
