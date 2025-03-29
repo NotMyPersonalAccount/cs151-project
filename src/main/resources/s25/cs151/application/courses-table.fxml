@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.CoursesTableController">
+    <TableView fx:id="table" prefWidth="600.0" layoutX="14" layoutY="14" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <columns>
+            <TableColumn fx:id="courseCode" text="Course Code" prefWidth="180"/>
+            <TableColumn fx:id="courseName" text="Course Name" prefWidth="220"/>
+            <TableColumn fx:id="sectionNumber" text="Section Number" prefWidth="180"/>
+        </columns>
+    </TableView>
+</AnchorPane>
