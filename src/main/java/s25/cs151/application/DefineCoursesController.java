@@ -17,14 +17,7 @@ public class DefineCoursesController {
 
     @FXML
     private BasicDefinePage page;
-    @FXML
-    private TableView<Course> courseTable;
-    @FXML
-    private TableColumn<Course, String> codeColumn;
-    @FXML
-    private TableColumn<Course, String> nameColumn;
-    @FXML
-    private TableColumn<Course, String> sectionColumn;
+
     @FXML
     public void initialize() {
         this.course = new Course();
@@ -47,32 +40,11 @@ public class DefineCoursesController {
 
         this.page.setForm(this.form);
         this.page.setOnSubmit(this::onSubmit);
-
-        setupTable();   // Setup the table columns
-        loadCourses();  // Load data from DB into table
-    }
-
-    private void setupTable() {
-        codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
-        sectionColumn.setCellValueFactory(new PropertyValueFactory<>("sectionNumber"));
-    }
-
-    private void loadCourses() {
-        try {
-            List<Course> courses = DatabaseHelper.getAllCourses(); // You’ll need to implement this
-            ObservableList<Course> observableCourses = FXCollections.observableArrayList(courses);
-            observableCourses.sort((a, b) -> b.getCourseCode().compareTo(a.getCourseCode())); // Descending sort
-            courseTable.setItems(observableCourses);
-        } catch (SQLException e) {
-            this.page.showError("Could not load courses from the database.");
-        }
     }
 
     public void onSubmit() {
         try {
             DatabaseHelper.insertCourse(this.course);
-            loadCourses();  // Refresh table after insert
             Main.switchPage("main-view.fxml");
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
@@ -83,3 +55,4 @@ public class DefineCoursesController {
         }
     }
 }
+
