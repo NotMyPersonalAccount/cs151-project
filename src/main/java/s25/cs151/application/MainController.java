@@ -17,4 +17,9 @@ public class MainController {
     protected void onDefineCoursesClick() {
         Main.switchPage("define-courses.fxml");
     }
+
+    @FXML
+    protected void onViewCoursesTableClick() {
+        Main.switchPage("courses-table.fxml");
+    }
 }
