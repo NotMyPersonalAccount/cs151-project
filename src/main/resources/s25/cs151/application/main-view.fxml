@@ -32,6 +32,9 @@
           <Button onAction="#onDefineCoursesClick" text="Define Courses" />
         </children>
       </FlowPane>
+
+      <fx:include source="courses-table.fxml" />
+
     </VBox>
   </content>
 </ScrollPane>
