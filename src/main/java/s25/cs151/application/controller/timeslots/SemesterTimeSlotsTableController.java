@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.timeslots;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.SemesterTimeSlot;
 
 import java.time.LocalTime;

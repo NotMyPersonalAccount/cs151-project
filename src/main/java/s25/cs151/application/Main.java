@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import s25.cs151.application.utils.DatabaseHelper;
 
 import java.sql.SQLException;
 

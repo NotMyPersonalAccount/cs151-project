@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.hours;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.SemesterHours;
 
 import java.util.Comparator;

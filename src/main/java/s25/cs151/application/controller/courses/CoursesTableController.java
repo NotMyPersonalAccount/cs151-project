@@ -1,10 +1,11 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.courses;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.Course;
 import s25.cs151.application.model.SemesterHours;
 

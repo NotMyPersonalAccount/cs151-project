@@ -1,4 +1,4 @@
-package s25.cs151.application.form;
+package s25.cs151.application.forms;
 
 import com.dlsc.formsfx.view.controls.SimpleControl;
 import com.dlsc.gemsfx.TimePicker;

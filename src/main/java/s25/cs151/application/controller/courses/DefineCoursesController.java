@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.courses;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
@@ -6,6 +6,9 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.CustomValidator;
 import javafx.fxml.FXML;
+import s25.cs151.application.control.BasicDefinePage;
+import s25.cs151.application.utils.DatabaseHelper;
+import s25.cs151.application.Main;
 import s25.cs151.application.model.Course;
 
 import java.sql.SQLException;

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 
-<TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.CoursesTableController">
+<TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.courses.CoursesTableController">
     <columns>
         <TableColumn fx:id="courseCode" prefWidth="150.0" text="Course Code" />
         <TableColumn fx:id="courseName" prefWidth="300.0" text="Course Name" />

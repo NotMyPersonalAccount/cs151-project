@@ -1,9 +1,12 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.timeslots;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import javafx.fxml.FXML;
-import s25.cs151.application.form.TimeField;
+import s25.cs151.application.control.BasicDefinePage;
+import s25.cs151.application.utils.DatabaseHelper;
+import s25.cs151.application.Main;
+import s25.cs151.application.forms.TimeField;
 import s25.cs151.application.model.SemesterTimeSlot;
 
 import java.sql.SQLException;

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 
-<TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.SemesterHoursTableController">
+<TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.hours.SemesterHoursTableController">
   <columns>
     <TableColumn fx:id="semester" prefWidth="75.0" text="Semester" />
     <TableColumn fx:id="year" prefWidth="75.0" text="Year" />

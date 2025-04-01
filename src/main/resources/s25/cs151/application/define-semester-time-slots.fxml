@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import s25.cs151.application.BasicDefinePage?>
+<?import s25.cs151.application.control.BasicDefinePage?>
 
-<BasicDefinePage title="Define Time Slots" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.DefineSemesterTimeSlotsController" fx:id="page" />
+<BasicDefinePage title="Define Time Slots" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.timeslots.DefineSemesterTimeSlotsController" fx:id="page" />

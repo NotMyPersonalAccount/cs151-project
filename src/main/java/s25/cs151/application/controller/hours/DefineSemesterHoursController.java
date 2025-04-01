@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.controller.hours;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
@@ -7,6 +7,9 @@ import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.model.validators.IntegerRangeValidator;
 import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
 import javafx.fxml.FXML;
+import s25.cs151.application.control.BasicDefinePage;
+import s25.cs151.application.utils.DatabaseHelper;
+import s25.cs151.application.Main;
 import s25.cs151.application.model.SemesterHours;
 
 import java.sql.SQLException;

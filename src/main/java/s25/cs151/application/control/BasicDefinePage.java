@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.control;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import s25.cs151.application.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class BasicDefinePage extends ScrollPane {
     protected Runnable onSubmit;
 
     public BasicDefinePage() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("basic-define-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("basic-define-page.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

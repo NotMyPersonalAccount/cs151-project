@@ -1,6 +1,7 @@
-package s25.cs151.application;
+package s25.cs151.application.controller;
 
 import javafx.fxml.FXML;
+import s25.cs151.application.Main;
 
 public class MainController {
     @FXML
