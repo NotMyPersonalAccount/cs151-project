@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="FlowPane" alignment="TOP_CENTER" hgap="15.0" prefHeight="100.0" prefWidth="700.0" vgap="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button mnemonicParsing="false" text="Home" fx:id="home" />
+      <Button mnemonicParsing="false" text="Schedules" fx:id="schedules" />
+      <Button mnemonicParsing="false" text="Semester Hours" fx:id="semester_hours" />
+      <Button mnemonicParsing="false" text="Courses" fx:id="courses" />
+      <Button mnemonicParsing="false" text="Time Slots" fx:id="time_slots" />
+   </children>
+</fx:root>

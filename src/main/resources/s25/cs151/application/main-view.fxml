@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.MainController">
+<?import s25.cs151.application.control.Navbar?>
+
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
   <content>
     <VBox alignment="CENTER" spacing="20.0">
       <padding>
@@ -12,27 +14,7 @@
       </padding>
 
       <Label style="-fx-font-size: 24px; -fx-text-fill: #333333;" text="BookieProfessor" />
-      <FlowPane hgap="20.0" prefWidth="200.0">
-        <children>
-          <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Semester Hours" />
-          <Button onAction="#onDefineSemesterHoursClick" text="Define Semester Hours" />
-        </children>
-      </FlowPane>
-      <fx:include source="semester-hours-table.fxml" />
-      <FlowPane hgap="20.0" prefWidth="200.0">
-        <children>
-          <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Semester Time Slots" />
-          <Button onAction="#onDefineSemesterTimeSlotsClick" text="Define Semester Time Slots" />
-        </children>
-      </FlowPane>
-      <fx:include source="semester-time-slots-table.fxml" />
-      <FlowPane hgap="20.0" prefWidth="200.0">
-        <children>
-          <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Courses" />
-          <Button onAction="#onDefineCoursesClick" text="Define Courses" />
-        </children>
-      </FlowPane>
-      <fx:include source="courses-table.fxml" />
+      <Navbar/>
     </VBox>
   </content>
 </ScrollPane>

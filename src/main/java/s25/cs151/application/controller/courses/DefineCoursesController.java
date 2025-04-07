@@ -47,7 +47,7 @@ public class DefineCoursesController {
     public void onSubmit() {
         try {
             DatabaseHelper.insertCourse(this.course);
-            Main.switchPage("main-view.fxml");
+            Main.switchPage("courses.fxml");
         } catch (SQLException e) {
             if (e.getErrorCode() == 19) {
                 this.page.showError("Duplicate entry. Combination already exists.");

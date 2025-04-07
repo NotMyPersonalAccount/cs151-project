@@ -41,7 +41,7 @@ public class DefineSemesterTimeSlotsController
     public void onSubmit() {
         try {
             DatabaseHelper.insertSemesterTimeSlot(this.semesterTimeSlots);
-            Main.switchPage("main-view.fxml");
+            Main.switchPage("semester-time-slots.fxml");
         } catch (SQLException e) {
             this.page.showError("An unknown error occurred.");
         }

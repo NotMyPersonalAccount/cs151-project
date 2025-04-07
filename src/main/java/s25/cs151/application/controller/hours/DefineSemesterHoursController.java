@@ -51,7 +51,7 @@ public class DefineSemesterHoursController
     public void onSubmit() {
         try {
             DatabaseHelper.insertSemesterHours(this.semesterHours);
-            Main.switchPage("main-view.fxml");
+            Main.switchPage("semester-hours.fxml");
         } catch (SQLException e) {
             // SQLite error code 19 is constraint failed (in this case, because of primary key uniqueness).
             if (e.getErrorCode() == 19) {

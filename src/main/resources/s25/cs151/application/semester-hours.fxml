@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import s25.cs151.application.control.Navbar?>
+
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.hours.SemesterHoursController">
+  <content>
+    <VBox alignment="CENTER" spacing="20.0">
+      <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+
+      <Navbar/>
+      <FlowPane hgap="20.0" prefWidth="200.0">
+        <children>
+          <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Semester Hours" />
+          <Button onAction="#onDefineSemesterHoursClick" text="Define Semester Hours" />
+        </children>
+      </FlowPane>
+      <TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1">
+        <columns>
+          <TableColumn fx:id="semester" prefWidth="75.0" text="Semester" />
+          <TableColumn fx:id="year" prefWidth="75.0" text="Year" />
+          <TableColumn fx:id="days" prefWidth="400.0" text="Days" />
+        </columns>
+      </TableView>
+    </VBox>
+  </content>
+</ScrollPane>

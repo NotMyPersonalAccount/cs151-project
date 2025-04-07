@@ -7,13 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import s25.cs151.application.Main;
 import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.SemesterHours;
 
 import java.util.Comparator;
 import java.util.Map;
 
-public class SemesterHoursTableController {
+public class SemesterHoursController {
     @FXML
     protected TableView<SemesterHours> table;
 
@@ -43,5 +44,10 @@ public class SemesterHoursTableController {
 
         // Set items in the table.
         this.table.setItems(FXCollections.observableList(DatabaseHelper.getAllSemesterHours()));
+    }
+
+    @FXML
+    protected void onDefineSemesterHoursClick() {
+        Main.switchPage("define-semester-hours.fxml");
     }
 }

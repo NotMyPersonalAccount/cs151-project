@@ -25,6 +25,7 @@ public class BasicDefinePage extends ScrollPane {
     @FXML
     protected Label errorHint;
 
+    protected String parentPage;
     protected String title;
 
     protected Form form;
@@ -47,7 +48,7 @@ public class BasicDefinePage extends ScrollPane {
     }
 
     protected void onCancelClicked() {
-        Main.switchPage("main-view.fxml");
+        Main.switchPage(this.parentPage);
     }
 
     protected void onSubmitClicked() {
@@ -83,6 +84,14 @@ public class BasicDefinePage extends ScrollPane {
     public void setTitle(String title) {
         this.title = title;
         this.titleLabel.setText(title);
+    }
+
+    public String getParentPage() {
+        return this.parentPage;
+    }
+
+    public void setParentPage(String parentPage) {
+        this.parentPage = parentPage;
     }
 
     public Form getForm() {
