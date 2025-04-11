@@ -3,12 +3,15 @@ package s25.cs151.application.utils;
 import s25.cs151.application.model.Course;
 import s25.cs151.application.model.SemesterHours;
 import s25.cs151.application.model.SemesterTimeSlot;
-
+import s25.cs151.application.model.Schedule;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:bookie_professor.db";
@@ -45,6 +48,22 @@ public class DatabaseHelper {
                     "   PRIMARY KEY (course_code, course_name, section_number)" +
                     ")";
             stmt.execute(initCoursesQuery);
+
+            String initSchedulesQuery =
+                    "CREATE TABLE IF NOT EXISTS schedules (" +
+                    "   id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "   name TEXT NOT NULL," +
+                    "   date TEXT NOT NULL," +
+                    "   time_slot_id INTEGER NOT NULL," +
+                    "   course_code TEXT NOT NULL," +
+                    "   course_name TEXT NOT NULL," +
+                    "   section_number TEXT NOT NULL," +
+                    "   reason TEXT," +
+                    "   comment TEXT" +
+                            ")";
+            stmt.execute(initSchedulesQuery);
+
+
         }
     }
 
@@ -184,5 +203,72 @@ public class DatabaseHelper {
 
         return allCourses;
     }
+
+    public static void insertSchedule(Schedule schedule) throws SQLException {
+        String insertQuery = "INSERT INTO schedules (name, date, time_slot_id, course_code, course_name, section_number, reason, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(insertQuery)
+        ) {
+            stmt.setString(1, schedule.getName());
+            stmt.setString(2, schedule.getDate().toString());
+            stmt.setInt(3, schedule.getTimeSlot().getId());
+            stmt.setString(4, schedule.getCourse().getCourseCode());
+            stmt.setString(5, schedule.getCourse().getCourseName());
+            stmt.setString(6, schedule.getCourse().getSectionNumber());
+            stmt.setString(7, schedule.getReason());
+            stmt.setString(8, schedule.getComment());
+            stmt.executeUpdate();
+        }
+    }
+
+    public static List<Schedule> getAllSchedules() {
+        List<Schedule> schedules = new ArrayList<>();
+        String query = "SELECT * FROM schedules";
+
+        // Build lookup maps
+        Map<Integer, SemesterTimeSlot> timeSlotMap = new HashMap<>();
+        for (SemesterTimeSlot slot : getAllSemesterTimeSlots()) {
+            timeSlotMap.put(slot.getId(), slot);
+        }
+
+        Map<String, Course> courseMap = new HashMap<>();
+        for (Course course : getAllCourses()) {
+            String key = course.getCourseCode() + "-" + course.getSectionNumber();
+            courseMap.put(key, course);
+        }
+
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                LocalDate date = LocalDate.parse(rs.getString("date"));
+                int timeSlotId = rs.getInt("time_slot_id");
+                String courseCode = rs.getString("course_code");
+                String sectionNumber = rs.getString("section_number");
+                String reason = rs.getString("reason");
+                String comment = rs.getString("comment");
+
+                SemesterTimeSlot timeSlot = timeSlotMap.get(timeSlotId);
+                Course course = courseMap.get(courseCode + "-" + sectionNumber);
+
+                if (timeSlot != null && course != null) {
+                    schedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
+    }
+
+
+
+
 }
 
