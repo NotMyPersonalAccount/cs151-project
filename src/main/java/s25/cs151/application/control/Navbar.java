@@ -3,12 +3,12 @@ package s25.cs151.application.control;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import s25.cs151.application.Main;
 
 import java.io.IOException;
 
-public class Navbar extends FlowPane {
+public class Navbar extends VBox {
     protected static String activePage = "main-view.fxml";
 
     @FXML
