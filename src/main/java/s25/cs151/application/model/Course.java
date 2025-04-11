@@ -27,4 +27,8 @@ public class Course {
     public String getSectionNumber() {
         return this.sectionNumber.get();
     }
+
+    public String toString() {
+        return this.getCourseCode() + "-" + this.getSectionNumber();
+    }
 }

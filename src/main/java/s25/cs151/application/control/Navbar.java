@@ -46,6 +46,7 @@ public class Navbar extends FlowPane {
         // A hack to keep focus on the clicked button when recreating the scene on page switches.
         this.sceneProperty().addListener((_, _, _) -> {
             Button activeButton = switch (activePage) {
+                case "schedules.fxml" -> this.schedules;
                 case "semester-hours.fxml" -> this.semester_hours;
                 case "courses.fxml" -> this.courses;
                 case "semester-time-slots.fxml" -> this.time_slots;

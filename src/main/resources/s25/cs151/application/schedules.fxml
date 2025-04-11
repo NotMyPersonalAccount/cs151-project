@@ -6,23 +6,21 @@
 
 <?import s25.cs151.application.control.Navbar?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s25.cs151.application.control.SchedulesController">
-    <top>
-        <GridPane hgap="10" vgap="10" padding="10">
-            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Label text="Time Slot:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="timeSlotField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Button text="Define Schedule" fx:id="defineScheduleButton" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        </GridPane>
-    </top>
-    
-    <center>
-        <TableView fx:id="scheduleTable" prefHeight="200.0">
-            <columns>
-                <TableColumn text="Date" fx:id="dateColumn"/>
-                <TableColumn text="Time Slot" fx:id="timeSlotColumn"/>
-            </columns>
-        </TableView>
-    </center>
-</BorderPane>
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.schedules.SchedulesController">
+    <content>
+        <VBox alignment="CENTER" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+
+            <Navbar/>
+            <FlowPane hgap="20.0" prefWidth="200.0">
+                <children>
+                    <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Schedules" />
+                    <Button onAction="#onDefineSchedulesClicked" text="Define Schedules" />
+                </children>
+            </FlowPane>
+            <!-- TODO: Implement table -->
+        </VBox>
+    </content>
+</ScrollPane>

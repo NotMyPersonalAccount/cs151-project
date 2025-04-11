@@ -2,4 +2,4 @@
 
 <?import s25.cs151.application.control.BasicDefinePage?>
 
-<BasicDefinePage title="Define Schedules" parentPage="schedules.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.control.SchedulesController" fx:id="page" />
+<BasicDefinePage title="Define Schedules" parentPage="schedules.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.schedules.DefineSchedulesController" fx:id="page" />
