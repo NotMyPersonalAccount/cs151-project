@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="s25.cs151.application.control.SchedulesController">
+    <top>
+        <GridPane hgap="10" vgap="10" padding="10">
+            <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="Time Slot:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="timeSlotField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button text="Define Schedule" fx:id="defineScheduleButton" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        </GridPane>
+    </top>
+    
+    <center>
+        <TableView fx:id="scheduleTable" prefHeight="200.0">
+            <columns>
+                <TableColumn text="Date" fx:id="dateColumn"/>
+                <TableColumn text="Time Slot" fx:id="timeSlotColumn"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
