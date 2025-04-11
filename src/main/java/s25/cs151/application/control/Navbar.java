@@ -35,7 +35,7 @@ public class Navbar extends FlowPane {
 
         // Handle button actions
         this.home.setOnAction(_ -> this.switchPage("main-view.fxml"));
-        //this.schedules.setOnAction(_ -> this.switchPage("schedules.fxml"));
+        this.schedules.setOnAction(_ -> this.switchPage("schedules.fxml"));
         this.semester_hours.setOnAction(_ -> this.switchPage("semester-hours.fxml"));
         this.courses.setOnAction(_ -> this.switchPage("courses.fxml"));
         this.time_slots.setOnAction(_ -> this.switchPage("semester-time-slots.fxml"));
