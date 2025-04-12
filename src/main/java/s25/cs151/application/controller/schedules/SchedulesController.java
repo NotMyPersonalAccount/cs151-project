@@ -1,7 +1,5 @@
 package s25.cs151.application.controller.schedules;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -13,6 +11,8 @@ import s25.cs151.application.model.SemesterTimeSlot;
 import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.Course;
 
+import java.time.LocalDate;
+
 public class SchedulesController {
     @FXML
     protected TableView<Schedule> table;
@@ -20,11 +20,11 @@ public class SchedulesController {
     @FXML
     protected TableColumn<Schedule, String> name;
     @FXML
-    protected TableColumn<Schedule, String> date;
+    protected TableColumn<Schedule, LocalDate> date;
     @FXML
-    protected TableColumn<Schedule, String> timeSlot;
+    protected TableColumn<Schedule, SemesterTimeSlot> timeSlot;
     @FXML
-    protected TableColumn<Schedule, String> course;
+    protected TableColumn<Schedule, Course> course;
     @FXML
     protected TableColumn<Schedule, String> reason;
     @FXML
@@ -34,17 +34,9 @@ public class SchedulesController {
     protected void initialize() {
         // Connect table columns with the model
         this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        this.date.setCellValueFactory(cellData ->
-                Bindings.createStringBinding(() -> cellData.getValue().getDate().toString())
-        );
-        this.timeSlot.setCellValueFactory(cellData -> {
-            ObjectProperty<SemesterTimeSlot> timeSlotProp = cellData.getValue().timeSlot;
-            return Bindings.createStringBinding(() -> timeSlotProp.get().toString(), timeSlotProp);
-        });
-        this.course.setCellValueFactory(cellData -> {
-            ObjectProperty<Course> courseProp = cellData.getValue().course;
-            return Bindings.createStringBinding(() -> courseProp.get().toString(), courseProp);
-        });
+        this.date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        this.timeSlot.setCellValueFactory(new PropertyValueFactory<>("timeSlot"));
+        this.course.setCellValueFactory(new PropertyValueFactory<>("course"));
         this.reason.setCellValueFactory(new PropertyValueFactory<>("reason"));
         this.comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
