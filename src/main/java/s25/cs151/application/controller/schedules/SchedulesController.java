@@ -16,6 +16,7 @@ import s25.cs151.application.model.Course;
 public class SchedulesController {
     @FXML
     protected TableView<Schedule> table;
+
     @FXML
     protected TableColumn<Schedule, String> name;
     @FXML
@@ -31,21 +32,19 @@ public class SchedulesController {
 
     @FXML
     protected void initialize() {
+        // Connect table columns with the model
         this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.date.setCellValueFactory(cellData ->
                 Bindings.createStringBinding(() -> cellData.getValue().getDate().toString())
         );
-
         this.timeSlot.setCellValueFactory(cellData -> {
             ObjectProperty<SemesterTimeSlot> timeSlotProp = cellData.getValue().timeSlot;
             return Bindings.createStringBinding(() -> timeSlotProp.get().toString(), timeSlotProp);
         });
-
         this.course.setCellValueFactory(cellData -> {
             ObjectProperty<Course> courseProp = cellData.getValue().course;
             return Bindings.createStringBinding(() -> courseProp.get().toString(), courseProp);
         });
-
         this.reason.setCellValueFactory(new PropertyValueFactory<>("reason"));
         this.comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
 

@@ -62,8 +62,6 @@ public class DatabaseHelper {
                     "   comment TEXT" +
                             ")";
             stmt.execute(initSchedulesQuery);
-
-
         }
     }
 
@@ -266,9 +264,5 @@ public class DatabaseHelper {
 
         return schedules;
     }
-
-
-
-
 }
 
