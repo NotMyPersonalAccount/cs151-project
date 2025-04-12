@@ -40,9 +40,11 @@ public class DefineSchedulesController {;
                                 .label("Date")
                                 .required("Date is required"),
                         Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(DatabaseHelper.getAllSemesterTimeSlots())), this.schedule.timeSlot)
+                                .select(0)
                                 .label("Time Slot")
                             .required("Time Slot is required"),
                         Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(DatabaseHelper.getAllCourses())), this.schedule.course)
+                                .select(0)
                                 .label("Course")
                             .required("Course is required"),
                         Field.ofStringType(this.schedule.reason)
