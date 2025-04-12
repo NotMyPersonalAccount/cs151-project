@@ -1,13 +1,9 @@
 package s25.cs151.application.controller.hours;
 
-import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.formsfx.model.structure.Group;
-import com.dlsc.formsfx.model.util.BindingMode;
-import com.dlsc.formsfx.model.validators.IntegerRangeValidator;
-import com.dlsc.formsfx.view.controls.SimpleCheckBoxControl;
 import javafx.fxml.FXML;
 import s25.cs151.application.control.BasicDefinePage;
+import s25.cs151.application.forms.Forms;
 import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.Main;
 import s25.cs151.application.model.SemesterHours;
@@ -31,19 +27,7 @@ public class DefineSemesterHoursController
         this.semesterHours = new SemesterHours();
 
         // Create the FormsFX form
-        this.form = Form.of(
-            Group.of(
-                    Field.ofSingleSelectionType(this.semesterHours.allSeasons, this.semesterHours.semester)
-                            .label("Semester"),
-                    Field.ofIntegerType(this.semesterHours.year)
-                            .validate( IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
-                            .label("Year"),
-                    Field.ofMultiSelectionType(this.semesterHours.allDays, this.semesterHours.days)
-                            .label("Days")
-                            .required("At least one day must be selected")
-                            .render(new SimpleCheckBoxControl<>())
-            )
-        ).title("Define Semester Hours").binding(BindingMode.CONTINUOUS);
+        this.form = Forms.createSemesterHoursForm(this.semesterHours);
         this.page.setForm(this.form);
         this.page.setOnSubmit(this::onSubmit);
     }
