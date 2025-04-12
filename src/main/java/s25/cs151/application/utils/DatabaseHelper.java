@@ -211,6 +211,9 @@ public class DatabaseHelper {
         return allCourses;
     }
 
+    /**
+     * Inserts a schedule into the database
+     */
     public static void insertSchedule(Schedule schedule) throws SQLException {
         String insertQuery = "INSERT INTO schedules (name, date, time_slot_id, course_code, course_name, section_number, reason, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (
@@ -229,6 +232,10 @@ public class DatabaseHelper {
         }
     }
 
+    /**
+     * Loads schedules from the database, sorted by date and time in ascending order.
+     * @return a list of Schedule, or an empty list if the query fails.
+     */
     public static List<Schedule> getAllSchedules() {
         List<Schedule> allSchedules = new ArrayList<>();
 
