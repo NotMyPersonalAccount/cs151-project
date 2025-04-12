@@ -24,10 +24,10 @@
                 <columns>
                     <TableColumn fx:id="name" text="Name" prefWidth="120.0" />
                     <TableColumn fx:id="date" text="Date" prefWidth="100.0" />
-                    <TableColumn fx:id="timeSlot" text="Time Slot" prefWidth="150.0" />
-                    <TableColumn fx:id="course" text="Course" prefWidth="150.0" />
-                    <TableColumn fx:id="reason" text="Reason" prefWidth="150.0" />
-                    <TableColumn fx:id="comment" text="Comment" prefWidth="150.0" />
+                    <TableColumn fx:id="timeSlot" text="Time Slot" prefWidth="100.0" />
+                    <TableColumn fx:id="course" text="Course" prefWidth="100.0" />
+                    <TableColumn fx:id="reason" text="Reason" prefWidth="300.0" />
+                    <TableColumn fx:id="comment" text="Comment" prefWidth="300.0" />
                 </columns>
             </TableView>
         </VBox>
