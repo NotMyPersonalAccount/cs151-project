@@ -232,8 +232,7 @@ public class DatabaseHelper {
     }
 
     public static List<Schedule> getAllSchedules() {
-        List<Schedule> schedules = new ArrayList<>();
-        String query = "SELECT * FROM schedules";
+        List<Schedule> allSchedules = new ArrayList<>();
 
         // Build lookup maps
         Map<Integer, SemesterTimeSlot> timeSlotMap = new HashMap<>();
@@ -241,12 +240,7 @@ public class DatabaseHelper {
             timeSlotMap.put(slot.getId(), slot);
         }
 
-        Map<String, Course> courseMap = new HashMap<>();
-        for (Course course : getAllCourses()) {
-            String key = course.getCourseCode() + "-" + course.getSectionNumber();
-            courseMap.put(key, course);
-        }
-
+        String query = "SELECT * FROM schedules";
         try (
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -258,22 +252,23 @@ public class DatabaseHelper {
                 LocalDate date = LocalDate.parse(rs.getString("date"));
                 int timeSlotId = rs.getInt("time_slot_id");
                 String courseCode = rs.getString("course_code");
+                String courseName = rs.getString("course_name");
                 String sectionNumber = rs.getString("section_number");
                 String reason = rs.getString("reason");
                 String comment = rs.getString("comment");
 
                 SemesterTimeSlot timeSlot = timeSlotMap.get(timeSlotId);
-                Course course = courseMap.get(courseCode + "-" + sectionNumber);
+                Course course = new Course(courseCode, courseName, sectionNumber);
 
-                if (timeSlot != null && course != null) {
-                    schedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
+                if (timeSlot != null) {
+                    allSchedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return schedules;
+        return allSchedules;
     }
 }
 
