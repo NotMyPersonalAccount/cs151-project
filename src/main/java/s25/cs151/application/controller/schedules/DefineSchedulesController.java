@@ -56,18 +56,11 @@ public class DefineSchedulesController {;
     }
 
     public void onSubmit() {
-        // TODO: Implement saving
         try {
             DatabaseHelper.insertSchedule(this.schedule);
             Main.switchPage("schedules.fxml");
         } catch (SQLException e) {
             this.page.showError("An error occurred while saving the schedule.");
         }
-        /*System.out.println(this.schedule.getName());
-        System.out.println(this.schedule.getDate());
-        System.out.println(this.schedule.getTimeSlot());
-        System.out.println(this.schedule.getCourse());
-        System.out.println(this.schedule.getComment());
-        System.out.println(this.schedule.getReason());*/
     }
 }

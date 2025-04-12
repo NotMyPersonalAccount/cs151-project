@@ -20,7 +20,6 @@
                     <Button onAction="#onDefineSchedulesClicked" text="Define Schedules" />
                 </children>
             </FlowPane>
-            <!-- TODO: Implement table -->
             <TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1">
                 <columns>
                     <TableColumn fx:id="name" text="Name" prefWidth="120.0" />

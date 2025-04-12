@@ -31,7 +31,6 @@ public class SchedulesController {
 
     @FXML
     protected void initialize() {
-        // TODO: Implement table
         this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.date.setCellValueFactory(cellData ->
                 Bindings.createStringBinding(() -> cellData.getValue().getDate().toString())
