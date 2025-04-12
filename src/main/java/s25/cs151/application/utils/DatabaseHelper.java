@@ -8,10 +8,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:bookie_professor.db";
@@ -234,13 +232,7 @@ public class DatabaseHelper {
     public static List<Schedule> getAllSchedules() {
         List<Schedule> allSchedules = new ArrayList<>();
 
-        // Build lookup maps
-        Map<Integer, SemesterTimeSlot> timeSlotMap = new HashMap<>();
-        for (SemesterTimeSlot slot : getAllSemesterTimeSlots()) {
-            timeSlotMap.put(slot.getId(), slot);
-        }
-
-        String query = "SELECT * FROM schedules";
+        String query = "SELECT * FROM schedules INNER JOIN semester_time_slots ON semester_time_slots.id = schedules.time_slot_id ";
         try (
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -256,13 +248,12 @@ public class DatabaseHelper {
                 String sectionNumber = rs.getString("section_number");
                 String reason = rs.getString("reason");
                 String comment = rs.getString("comment");
+                LocalTime fromTime = LocalTime.parse(rs.getString("from_time"), TIME_FORMATTER);
+                LocalTime toTime = LocalTime.parse(rs.getString("to_time"), TIME_FORMATTER);
 
-                SemesterTimeSlot timeSlot = timeSlotMap.get(timeSlotId);
                 Course course = new Course(courseCode, courseName, sectionNumber);
-
-                if (timeSlot != null) {
-                    allSchedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
-                }
+                SemesterTimeSlot timeSlot = new SemesterTimeSlot(timeSlotId, fromTime, toTime);
+                allSchedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
             }
         } catch (SQLException e) {
             e.printStackTrace();
