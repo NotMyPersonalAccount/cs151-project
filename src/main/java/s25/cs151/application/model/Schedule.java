@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 
-public class Schedule {
+public class Schedule implements IModel {
     protected int id;
 
     public final StringProperty name = new SimpleStringProperty("");

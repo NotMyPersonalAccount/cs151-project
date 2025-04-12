@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import java.time.Year;
 import java.util.List;
 
-public class SemesterHours {
+public class SemesterHours implements IModel {
     public final ListProperty<String> allSeasons = new SimpleListProperty<>(FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter"));
     public final ObjectProperty<String> semester = new SimpleObjectProperty<>("Spring");
 

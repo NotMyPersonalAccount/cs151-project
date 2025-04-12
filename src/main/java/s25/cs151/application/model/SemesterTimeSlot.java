@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class SemesterTimeSlot {
+public class SemesterTimeSlot implements IModel {
     protected int id;
 
     public final ObjectProperty<LocalTime> from = new SimpleObjectProperty<>(LocalTime.of(12,0));

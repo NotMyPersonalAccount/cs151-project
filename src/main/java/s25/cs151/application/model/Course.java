@@ -3,7 +3,7 @@ package s25.cs151.application.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Course {
+public class Course implements IModel {
     public final StringProperty courseCode = new SimpleStringProperty("");
     public final StringProperty courseName = new SimpleStringProperty("");
     public final StringProperty sectionNumber = new SimpleStringProperty("");
