@@ -8,6 +8,8 @@ module s25.cs151.application {
     opens s25.cs151.application to javafx.fxml;
     exports s25.cs151.application;
     exports s25.cs151.application.model;
+    exports s25.cs151.application.controller;
+    opens s25.cs151.application.controller to javafx.fxml;
     exports s25.cs151.application.controller.courses;
     opens s25.cs151.application.controller.courses to javafx.fxml;
     exports s25.cs151.application.controller.timeslots;
@@ -20,4 +22,6 @@ module s25.cs151.application {
     opens s25.cs151.application.utils to javafx.fxml;
     exports s25.cs151.application.control;
     opens s25.cs151.application.control to javafx.fxml;
+    exports s25.cs151.application.forms;
+    opens s25.cs151.application.forms to javafx.fxml;
 }
