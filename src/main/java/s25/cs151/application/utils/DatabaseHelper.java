@@ -1,9 +1,7 @@
 package s25.cs151.application.utils;
 
-import s25.cs151.application.model.Course;
-import s25.cs151.application.model.SemesterHours;
-import s25.cs151.application.model.SemesterTimeSlot;
-import s25.cs151.application.model.Schedule;
+import s25.cs151.application.model.*;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -73,6 +71,19 @@ public class DatabaseHelper {
                     "           ON DELETE CASCADE" +
                     ")";
             stmt.execute(initSchedulesQuery);
+        }
+    }
+
+    /**
+     * Calls the appropriate insert method for the IModel type passed
+     */
+    public static void insert(IModel model) throws SQLException {
+        switch (model) {
+            case SemesterHours semesterHours -> insertSemesterHours(semesterHours);
+            case SemesterTimeSlot semesterTimeSlot -> insertSemesterTimeSlot(semesterTimeSlot);
+            case Course course -> insertCourse(course);
+            case Schedule schedule -> insertSchedule(schedule);
+            case null, default -> throw new RuntimeException("Unknown model type passed to DatabaseHelper.insert");
         }
     }
 
