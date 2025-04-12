@@ -23,6 +23,9 @@ public class DatabaseHelper {
     public static void initialize() throws SQLException {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
+            // Enable enforcement of foreign keys in SQLite
+            stmt.execute("PRAGMA foreign_keys = ON");
+
             String initSemesterHoursQuery =
                     "CREATE TABLE IF NOT EXISTS semester_hours (" +
                     "   semester TEXT NOT NULL," +
@@ -59,8 +62,16 @@ public class DatabaseHelper {
                     "   course_name TEXT NOT NULL," +
                     "   section_number TEXT NOT NULL," +
                     "   reason TEXT," +
-                    "   comment TEXT" +
-                            ")";
+                    "   comment TEXT," +
+                    "   FOREIGN KEY (time_slot_id)" +
+                    "       REFERENCES semester_time_slots (id)" +
+                    "           ON UPDATE CASCADE" +
+                    "           ON DELETE CASCADE," +
+                    "   FOREIGN KEY (course_code, course_name, section_number)" +
+                    "       REFERENCES courses (course_code, course_name, section_number)" +
+                    "           ON UPDATE CASCADE" +
+                    "           ON DELETE CASCADE" +
+                    ")";
             stmt.execute(initSchedulesQuery);
         }
     }
