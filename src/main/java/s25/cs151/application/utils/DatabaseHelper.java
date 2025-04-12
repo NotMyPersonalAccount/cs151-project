@@ -3,8 +3,9 @@ package s25.cs151.application.utils;
 import s25.cs151.application.model.Course;
 import s25.cs151.application.model.SemesterHours;
 import s25.cs151.application.model.SemesterTimeSlot;
-
+import s25.cs151.application.model.Schedule;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:bookie_professor.db";
 
+    protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
     /**
      * Initializes all tables in the database.
      * @throws SQLException Thrown if query fails for any reason.
@@ -20,6 +23,9 @@ public class DatabaseHelper {
     public static void initialize() throws SQLException {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
+            // Enable enforcement of foreign keys in SQLite
+            stmt.execute("PRAGMA foreign_keys = ON");
+
             String initSemesterHoursQuery =
                     "CREATE TABLE IF NOT EXISTS semester_hours (" +
                     "   semester TEXT NOT NULL," +
@@ -45,6 +51,28 @@ public class DatabaseHelper {
                     "   PRIMARY KEY (course_code, course_name, section_number)" +
                     ")";
             stmt.execute(initCoursesQuery);
+
+            String initSchedulesQuery =
+                    "CREATE TABLE IF NOT EXISTS schedules (" +
+                    "   id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "   name TEXT NOT NULL," +
+                    "   date TEXT NOT NULL," +
+                    "   time_slot_id INTEGER NOT NULL," +
+                    "   course_code TEXT NOT NULL," +
+                    "   course_name TEXT NOT NULL," +
+                    "   section_number TEXT NOT NULL," +
+                    "   reason TEXT," +
+                    "   comment TEXT," +
+                    "   FOREIGN KEY (time_slot_id)" +
+                    "       REFERENCES semester_time_slots (id)" +
+                    "           ON UPDATE CASCADE" +
+                    "           ON DELETE CASCADE," +
+                    "   FOREIGN KEY (course_code, course_name, section_number)" +
+                    "       REFERENCES courses (course_code, course_name, section_number)" +
+                    "           ON UPDATE CASCADE" +
+                    "           ON DELETE CASCADE" +
+                    ")";
+            stmt.execute(initSchedulesQuery);
         }
     }
 
@@ -53,13 +81,12 @@ public class DatabaseHelper {
      */
     public static void insertSemesterTimeSlot(SemesterTimeSlot semesterTimeSlots) throws SQLException{
         String insertQuery = "INSERT INTO semester_time_slots (from_time, to_time) VALUES (?, ?)";
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         try (
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(insertQuery)
         ) {
-            stmt.setString(1, semesterTimeSlots.getFrom().format(dateFormat));
-            stmt.setString(2, semesterTimeSlots.getTo().format(dateFormat));
+            stmt.setString(1, semesterTimeSlots.getFrom().format(TIME_FORMATTER));
+            stmt.setString(2, semesterTimeSlots.getTo().format(TIME_FORMATTER));
             stmt.executeUpdate();
         }
     }
@@ -72,15 +99,14 @@ public class DatabaseHelper {
         List<SemesterTimeSlot> allSemesterTimeSlots = new ArrayList<>();
 
         String query = "SELECT * FROM semester_time_slots ORDER BY from_time, to_time";
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
-                LocalTime from = LocalTime.parse(rs.getString("from_time"), dateFormat);
-                LocalTime to = LocalTime.parse(rs.getString("to_time"), dateFormat);
+                LocalTime from = LocalTime.parse(rs.getString("from_time"), TIME_FORMATTER);
+                LocalTime to = LocalTime.parse(rs.getString("to_time"), TIME_FORMATTER);
 
                 SemesterTimeSlot semesterTimeSlot = new SemesterTimeSlot(id, from, to);
                 allSemesterTimeSlots.add(semesterTimeSlot);
@@ -183,6 +209,64 @@ public class DatabaseHelper {
         }
 
         return allCourses;
+    }
+
+    /**
+     * Inserts a schedule into the database
+     */
+    public static void insertSchedule(Schedule schedule) throws SQLException {
+        String insertQuery = "INSERT INTO schedules (name, date, time_slot_id, course_code, course_name, section_number, reason, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(insertQuery)
+        ) {
+            stmt.setString(1, schedule.getName());
+            stmt.setString(2, schedule.getDate().toString());
+            stmt.setInt(3, schedule.getTimeSlot().getId());
+            stmt.setString(4, schedule.getCourse().getCourseCode());
+            stmt.setString(5, schedule.getCourse().getCourseName());
+            stmt.setString(6, schedule.getCourse().getSectionNumber());
+            stmt.setString(7, schedule.getReason());
+            stmt.setString(8, schedule.getComment());
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
+     * Loads schedules from the database, sorted by date and time in ascending order.
+     * @return a list of Schedule, or an empty list if the query fails.
+     */
+    public static List<Schedule> getAllSchedules() {
+        List<Schedule> allSchedules = new ArrayList<>();
+
+        String query = "SELECT * FROM schedules INNER JOIN semester_time_slots ON semester_time_slots.id = schedules.time_slot_id ORDER BY date, from_time";
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                LocalDate date = LocalDate.parse(rs.getString("date"));
+                int timeSlotId = rs.getInt("time_slot_id");
+                String courseCode = rs.getString("course_code");
+                String courseName = rs.getString("course_name");
+                String sectionNumber = rs.getString("section_number");
+                String reason = rs.getString("reason");
+                String comment = rs.getString("comment");
+                LocalTime fromTime = LocalTime.parse(rs.getString("from_time"), TIME_FORMATTER);
+                LocalTime toTime = LocalTime.parse(rs.getString("to_time"), TIME_FORMATTER);
+
+                Course course = new Course(courseCode, courseName, sectionNumber);
+                SemesterTimeSlot timeSlot = new SemesterTimeSlot(timeSlotId, fromTime, toTime);
+                allSchedules.add(new Schedule(id, name, date, timeSlot, course, reason, comment));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allSchedules;
     }
 }
 
