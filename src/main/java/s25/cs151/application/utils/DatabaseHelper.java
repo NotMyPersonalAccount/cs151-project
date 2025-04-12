@@ -16,6 +16,8 @@ import java.util.Map;
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:bookie_professor.db";
 
+    protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
     /**
      * Initializes all tables in the database.
      * @throws SQLException Thrown if query fails for any reason.
@@ -81,13 +83,12 @@ public class DatabaseHelper {
      */
     public static void insertSemesterTimeSlot(SemesterTimeSlot semesterTimeSlots) throws SQLException{
         String insertQuery = "INSERT INTO semester_time_slots (from_time, to_time) VALUES (?, ?)";
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
         try (
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(insertQuery)
         ) {
-            stmt.setString(1, semesterTimeSlots.getFrom().format(dateFormat));
-            stmt.setString(2, semesterTimeSlots.getTo().format(dateFormat));
+            stmt.setString(1, semesterTimeSlots.getFrom().format(TIME_FORMATTER));
+            stmt.setString(2, semesterTimeSlots.getTo().format(TIME_FORMATTER));
             stmt.executeUpdate();
         }
     }
@@ -100,15 +101,14 @@ public class DatabaseHelper {
         List<SemesterTimeSlot> allSemesterTimeSlots = new ArrayList<>();
 
         String query = "SELECT * FROM semester_time_slots ORDER BY from_time, to_time";
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
-                LocalTime from = LocalTime.parse(rs.getString("from_time"), dateFormat);
-                LocalTime to = LocalTime.parse(rs.getString("to_time"), dateFormat);
+                LocalTime from = LocalTime.parse(rs.getString("from_time"), TIME_FORMATTER);
+                LocalTime to = LocalTime.parse(rs.getString("to_time"), TIME_FORMATTER);
 
                 SemesterTimeSlot semesterTimeSlot = new SemesterTimeSlot(id, from, to);
                 allSemesterTimeSlots.add(semesterTimeSlot);
