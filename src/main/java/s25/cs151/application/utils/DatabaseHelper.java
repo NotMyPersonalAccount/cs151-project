@@ -233,6 +233,20 @@ public class DatabaseHelper {
     }
 
     /**
+     * Deletes a schedule from the database
+     */
+    public static void deleteSchedule(Schedule schedule) throws SQLException {
+        String deleteQuery = "DELETE FROM schedules WHERE id = ?";
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(deleteQuery)
+        ) {
+            stmt.setInt(1, schedule.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
      * Loads schedules from the database, sorted by date and time in ascending order.
      * @return a list of Schedule, or an empty list if the query fails.
      */
