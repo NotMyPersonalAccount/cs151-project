@@ -13,7 +13,7 @@ import s25.cs151.application.Main;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BasicDefinePage extends ScrollPane {
+public class DefinePage extends ScrollPane {
     @FXML
     protected Label titleLabel;
     @FXML
@@ -31,8 +31,8 @@ public class BasicDefinePage extends ScrollPane {
     protected Form form;
     protected Runnable onSubmit;
 
-    public BasicDefinePage() {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("basic-define-page.fxml"));
+    public DefinePage() {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define-page.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

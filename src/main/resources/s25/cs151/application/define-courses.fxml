@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import s25.cs151.application.control.BasicDefinePage?>
+<?import s25.cs151.application.control.DefinePage?>
 
-<BasicDefinePage title="Define Courses" parentPage="courses.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.courses.DefineCoursesController" fx:id="page" />
+<DefinePage title="Define Courses" parentPage="courses.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.courses.DefineCoursesController" fx:id="page" />

@@ -3,7 +3,7 @@ package s25.cs151.application.controller;
 import com.dlsc.formsfx.model.structure.Form;
 import javafx.fxml.FXML;
 import s25.cs151.application.Main;
-import s25.cs151.application.control.BasicDefinePage;
+import s25.cs151.application.control.DefinePage;
 import s25.cs151.application.forms.IFormCreator;
 import s25.cs151.application.utils.IDatabaseExecutor;
 
@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 abstract public class DefineController<T> {
     @FXML
-    protected BasicDefinePage page;
+    protected DefinePage page;
 
     protected Form form;
     protected IFormCreator<T> formCreator;
