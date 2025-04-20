@@ -1,11 +1,13 @@
 package s25.cs151.application.controller.schedules;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s25.cs151.application.Main;
 import s25.cs151.application.model.Schedule;
@@ -16,6 +18,12 @@ import s25.cs151.application.model.Course;
 import java.time.LocalDate;
 
 public class SchedulesController {
+    protected ObservableList<Schedule> schedules;
+    protected StringProperty searchQuery = new SimpleStringProperty("");
+
+    @FXML
+    protected TextField searchField;
+
     @FXML
     protected TableView<Schedule> table;
 
@@ -44,10 +52,8 @@ public class SchedulesController {
                 new TableCell<>() {
                     protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (!empty) {
-                            setText(item);
-                            setTooltip(new Tooltip(item));
-                        }
+                        setText(empty ? null : item);
+                        setTooltip(empty ? null : new Tooltip(item));
                     }
                 }
         );
@@ -56,16 +62,27 @@ public class SchedulesController {
             new TableCell<>() {
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (!empty) {
-                        setText(item);
-                        setTooltip(new Tooltip(item));
-                    }
+                    setText(empty ? null : item);
+                    setTooltip(empty ? null : new Tooltip(item));
                 }
             }
         );
 
+        // Create and track an observable list of schedules
+        this.schedules = FXCollections.observableArrayList(DatabaseHelper.getAllSchedules());
+        // Create a filtered list from the observable lst
+        FilteredList<Schedule> filteredSchedules = new FilteredList<>(this.schedules);
+        // Bind the filtered list predicate to the search query
+        filteredSchedules.predicateProperty().bind(Bindings.createObjectBinding(() -> {
+            return s -> s.getName().toLowerCase().contains(this.searchQuery.get().toLowerCase());
+        }, this.searchQuery));
         // Load data into the table
-        this.table.setItems(FXCollections.observableList(DatabaseHelper.getAllSchedules()));
+        this.table.setItems(filteredSchedules);
+    }
+
+    @FXML
+    protected void onSearchClicked() {
+        this.searchQuery.set(this.searchField.getText());
     }
 
     @FXML

@@ -6,7 +6,7 @@
 
 <?import s25.cs151.application.control.Navbar?>
 
-<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.schedules.SchedulesController">
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.schedules.SchedulesController">
     <content>
         <VBox alignment="CENTER" spacing="20.0">
             <padding>
@@ -17,17 +17,23 @@
             <FlowPane hgap="20.0" prefWidth="200.0">
                 <children>
                     <Label style="-fx-text-fill: #333333; -fx-font-size: 18px;" text="Schedules" />
+                    <HBox>
+                        <children>
+                            <TextField fx:id="searchField" promptText="Name" />
+                            <Button mnemonicParsing="false" onAction="#onSearchClicked" text="Search" />
+                        </children>
+                    </HBox>
                     <Button onAction="#onDefineSchedulesClicked" text="Define Schedules" />
                 </children>
             </FlowPane>
             <TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1">
                 <columns>
-                    <TableColumn fx:id="name" text="Name" prefWidth="120.0" />
-                    <TableColumn fx:id="date" text="Date" prefWidth="100.0" />
-                    <TableColumn fx:id="timeSlot" text="Time Slot" prefWidth="100.0" />
-                    <TableColumn fx:id="course" text="Course" prefWidth="100.0" />
-                    <TableColumn fx:id="reason" text="Reason" prefWidth="300.0" />
-                    <TableColumn fx:id="comment" text="Comment" prefWidth="300.0" />
+                    <TableColumn fx:id="name" prefWidth="120.0" text="Name" />
+                    <TableColumn fx:id="date" prefWidth="100.0" text="Date" />
+                    <TableColumn fx:id="timeSlot" prefWidth="100.0" text="Time Slot" />
+                    <TableColumn fx:id="course" prefWidth="100.0" text="Course" />
+                    <TableColumn fx:id="reason" prefWidth="300.0" text="Reason" />
+                    <TableColumn fx:id="comment" prefWidth="300.0" text="Comment" />
                 </columns>
             </TableView>
         </VBox>
