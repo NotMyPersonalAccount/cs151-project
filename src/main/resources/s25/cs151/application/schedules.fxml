@@ -29,11 +29,12 @@
             <TableView fx:id="table" xmlns:fx="http://javafx.com/fxml/1">
                 <columns>
                     <TableColumn fx:id="name" prefWidth="120.0" text="Name" />
-                    <TableColumn fx:id="date" prefWidth="100.0" text="Date" />
-                    <TableColumn fx:id="timeSlot" prefWidth="100.0" text="Time Slot" />
-                    <TableColumn fx:id="course" prefWidth="100.0" text="Course" />
-                    <TableColumn fx:id="reason" prefWidth="300.0" text="Reason" />
-                    <TableColumn fx:id="comment" prefWidth="300.0" text="Comment" />
+                    <TableColumn fx:id="date" prefWidth="90.0" text="Date" />
+                    <TableColumn fx:id="timeSlot" prefWidth="90.0" text="Time Slot" />
+                    <TableColumn fx:id="course" prefWidth="90.0" text="Course" />
+                    <TableColumn fx:id="reason" prefWidth="270.0" text="Reason" />
+                    <TableColumn fx:id="comment" prefWidth="270.0" text="Comment" />
+                    <TableColumn fx:id="actions" />
                 </columns>
             </TableView>
         </VBox>
