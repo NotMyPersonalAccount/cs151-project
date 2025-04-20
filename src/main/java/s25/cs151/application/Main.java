@@ -45,7 +45,7 @@ public class Main extends Application {
             }
             scene.setRoot(fxmlLoader.load());
         } catch (Exception e) {
-            // NOOP
+            e.printStackTrace();
         }
     }
 }
