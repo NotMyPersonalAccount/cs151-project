@@ -253,7 +253,7 @@ public class DatabaseHelper {
     public static List<Schedule> getAllSchedules() {
         List<Schedule> allSchedules = new ArrayList<>();
 
-        String query = "SELECT * FROM schedules INNER JOIN semester_time_slots ON semester_time_slots.id = schedules.time_slot_id ORDER BY date, from_time, to_time";
+        String query = "SELECT * FROM schedules INNER JOIN semester_time_slots ON semester_time_slots.id = schedules.time_slot_id ORDER BY date DESC, from_time DESC, to_time DESC";
         try (
                 Connection conn = DriverManager.getConnection(DB_URL);
                 PreparedStatement stmt = conn.prepareStatement(query);
