@@ -27,6 +27,7 @@ public class DefinePage extends ScrollPane {
 
     protected String parentPage;
     protected String modelName;
+    protected boolean editing = false;
 
     protected Form form;
     protected Runnable onSubmit;
@@ -83,7 +84,17 @@ public class DefinePage extends ScrollPane {
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
-        this.titleLabel.setText("Define " + modelName);
+        this.updateTitleLabel();
+    }
+
+    public boolean isEditing() {
+        return this.editing;
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
+        this.submitButton.setText(editing ? "Edit" : "Submit");
+        this.updateTitleLabel();
     }
 
     public String getParentPage() {
@@ -107,5 +118,9 @@ public class DefinePage extends ScrollPane {
 
     public void setOnSubmit(Runnable onSubmit) {
         this.onSubmit = onSubmit;
+    }
+
+    protected void updateTitleLabel() {
+        this.titleLabel.setText((this.editing ? "Edit" : "Define") + " " + this.modelName);
     }
 }
