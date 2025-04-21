@@ -32,8 +32,9 @@ public class Main extends Application {
      * If the given page could not be found, the method will silently fail.
      *
      * @param page the full name of the page's fxml file under the `resources/` directory
+     * @return the controller of the new page, or null if no page was loaded
      */
-    public static void switchPage(String page) {
+    public static Object switchPage(String page) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(page));
             Scene scene = appStage.getScene();
@@ -41,11 +42,13 @@ public class Main extends Application {
             // Create and set scene if one does not yet exist. Otherwise, update the existing scene.
             if (scene == null) {
                 appStage.setScene(new Scene(fxmlLoader.load(), 1080, 720));
-                return;
+                return fxmlLoader.getController();
             }
             scene.setRoot(fxmlLoader.load());
+            return fxmlLoader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
