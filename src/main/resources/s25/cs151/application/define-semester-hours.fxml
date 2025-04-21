@@ -2,4 +2,4 @@
 
 <?import s25.cs151.application.control.DefinePage?>
 
-<DefinePage title="Define Semester Hours" parentPage="semester-hours.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.hours.DefineSemesterHoursController" fx:id="page" />
+<DefinePage modelName="Semester Hour" parentPage="semester-hours.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.hours.DefineSemesterHoursController" fx:id="page" />

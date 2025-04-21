@@ -2,4 +2,4 @@
 
 <?import s25.cs151.application.control.DefinePage?>
 
-<DefinePage title="Define Courses" parentPage="courses.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.courses.DefineCoursesController" fx:id="page" />
+<DefinePage modelName="Course" parentPage="courses.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.courses.DefineCoursesController" fx:id="page" />

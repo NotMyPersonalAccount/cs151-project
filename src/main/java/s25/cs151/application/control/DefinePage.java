@@ -26,7 +26,7 @@ public class DefinePage extends ScrollPane {
     protected Label errorHint;
 
     protected String parentPage;
-    protected String title;
+    protected String modelName;
 
     protected Form form;
     protected Runnable onSubmit;
@@ -77,13 +77,13 @@ public class DefinePage extends ScrollPane {
         this.errorHint.setStyle("-fx-text-fill: red;");
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getModelName() {
+        return this.modelName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-        this.titleLabel.setText(title);
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+        this.titleLabel.setText("Define " + modelName);
     }
 
     public String getParentPage() {
