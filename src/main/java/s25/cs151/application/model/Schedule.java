@@ -14,7 +14,8 @@ public class Schedule {
     public final StringProperty reason = new SimpleStringProperty("");
     public final StringProperty comment = new SimpleStringProperty("");
 
-    public Schedule() {}
+    public Schedule() {
+    }
 
     public Schedule(int id, String name, LocalDate date, SemesterTimeSlot timeSlot, Course course, String reason, String comment) {
         this.id = id;
@@ -56,5 +57,18 @@ public class Schedule {
 
     public String toString() {
         return this.getName();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Schedule schedule)) return false;
+
+        return this.id == schedule.id &&
+                this.getName().equals(schedule.getName()) &&
+                this.getDate().equals(schedule.getDate()) &&
+                this.getTimeSlot().equals(schedule.getTimeSlot()) &&
+                this.getCourse().equals(schedule.getCourse()) &&
+                this.getReason().equals(schedule.getReason()) &&
+                this.getComment().equals(schedule.getComment());
     }
 }

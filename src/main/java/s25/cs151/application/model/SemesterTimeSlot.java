@@ -8,12 +8,13 @@ import java.time.format.DateTimeFormatter;
 public class SemesterTimeSlot {
     protected int id;
 
-    public final ObjectProperty<LocalTime> from = new SimpleObjectProperty<>(LocalTime.of(12,0));
-    public final ObjectProperty<LocalTime> to = new SimpleObjectProperty<>(LocalTime.of(13,0));
+    public final ObjectProperty<LocalTime> from = new SimpleObjectProperty<>(LocalTime.of(12, 0));
+    public final ObjectProperty<LocalTime> to = new SimpleObjectProperty<>(LocalTime.of(13, 0));
 
     protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public SemesterTimeSlot() {}
+    public SemesterTimeSlot() {
+    }
 
     public SemesterTimeSlot(int id, LocalTime from, LocalTime to) {
         this.id = id;
@@ -35,5 +36,14 @@ public class SemesterTimeSlot {
 
     public String toString() {
         return this.getFrom().format(TIME_FORMATTER) + " - " + this.getTo().format(TIME_FORMATTER);
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SemesterTimeSlot semesterTimeSlot)) return false;
+
+        return this.id == semesterTimeSlot.id &&
+                this.getFrom() == semesterTimeSlot.getFrom() &&
+                this.getTo().equals(semesterTimeSlot.getTo());
     }
 }

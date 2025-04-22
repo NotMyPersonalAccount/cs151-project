@@ -15,7 +15,8 @@ public class SemesterHours {
     public final ListProperty<String> allDays = new SimpleListProperty<>(FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"));
     public final ListProperty<String> days = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    public SemesterHours() {}
+    public SemesterHours() {
+    }
 
     public SemesterHours(String semester, int year, String[] days) {
         this.semester.set(semester);
@@ -37,5 +38,14 @@ public class SemesterHours {
 
     public String toString() {
         return this.getSemester() + " " + this.getYear();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SemesterHours semesterHours)) return false;
+
+        return this.getSemester().equals(semesterHours.getSemester()) &&
+                this.getYear() == semesterHours.getYear() &&
+                this.getDays().equals(semesterHours.getDays());
     }
 }
