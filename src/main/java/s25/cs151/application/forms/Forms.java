@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import s25.cs151.application.model.*;
 import s25.cs151.application.utils.DatabaseHelper;
 
+import java.util.List;
+
 public class Forms {
     /**
      * Creates and binds values for a semester hours definition form
@@ -22,7 +24,7 @@ public class Forms {
                         Field.ofSingleSelectionType(semesterHours.allSeasons, semesterHours.semester)
                                 .label("Semester"),
                         Field.ofIntegerType(semesterHours.year)
-                                .validate( IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
+                                .validate(IntegerRangeValidator.between(1000, 9999, "Four digits expected"))
                                 .label("Year"),
                         Field.ofMultiSelectionType(semesterHours.allDays, semesterHours.days)
                                 .label("Days")
@@ -70,6 +72,13 @@ public class Forms {
      * Creates and binds value for a schedule definition form
      */
     public static Form createScheduleForm(Schedule schedule) {
+        List<SemesterTimeSlot> semesterTimeSlots = DatabaseHelper.getAllSemesterTimeSlots();
+        List<Course> courses = DatabaseHelper.getAllCourses();
+
+        // Set values to the first option if not already set
+        if (schedule.getTimeSlot() == null) schedule.timeSlot.set(semesterTimeSlots.getFirst());
+        if (schedule.getCourse() == null) schedule.course.set(courses.getFirst());
+
         return Form.of(
                 Group.of(
                         Field.ofStringType(schedule.name)
@@ -78,12 +87,10 @@ public class Forms {
                         Field.ofDate(schedule.date)
                                 .label("Date")
                                 .required("Date is required"),
-                        Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(DatabaseHelper.getAllSemesterTimeSlots())), schedule.timeSlot)
-                                .select(0)
+                        Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(semesterTimeSlots)), schedule.timeSlot)
                                 .label("Time Slot")
                                 .required("Time Slot is required"),
-                        Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(DatabaseHelper.getAllCourses())), schedule.course)
-                                .select(0)
+                        Field.ofSingleSelectionType(new SimpleListProperty<>(FXCollections.observableList(courses)), schedule.course)
                                 .label("Course")
                                 .required("Course is required"),
                         Field.ofStringType(schedule.reason)
