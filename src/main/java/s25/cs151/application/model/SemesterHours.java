@@ -34,4 +34,8 @@ public class SemesterHours {
     public List<String> getDays() {
         return this.days.get();
     }
+
+    public String toString() {
+        return this.getSemester() + " " + this.getYear();
+    }
 }

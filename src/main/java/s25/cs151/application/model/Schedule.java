@@ -53,4 +53,8 @@ public class Schedule {
     public String getComment() {
         return this.comment.get();
     }
+
+    public String toString() {
+        return this.getName();
+    }
 }
