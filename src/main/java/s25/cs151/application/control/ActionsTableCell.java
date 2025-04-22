@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import s25.cs151.application.Main;
+import s25.cs151.application.controller.DefineController;
+import s25.cs151.application.model.IModel;
 import s25.cs151.application.utils.IDatabaseExecutor;
 
 import java.io.IOException;
@@ -17,12 +19,14 @@ import java.util.Optional;
  *
  * @param <T> the data model type
  */
-public class ActionsTableCell<T> extends TableCell<T, T> {
+public class ActionsTableCell<T extends IModel<T>> extends TableCell<T, T> {
     protected String modelName;
+    protected String definePageName;
     protected IDatabaseExecutor<T> databaseDeleter;
 
-    public ActionsTableCell(String modelName, IDatabaseExecutor<T> databaseDeleter) {
+    public ActionsTableCell(String modelName, String definePageName, IDatabaseExecutor<T> databaseDeleter) {
         this.modelName = modelName;
+        this.definePageName = definePageName;
         this.databaseDeleter = databaseDeleter;
     }
 
@@ -43,6 +47,17 @@ public class ActionsTableCell<T> extends TableCell<T, T> {
             Button deleteButton = createButton("Delete", "trash.png");
             deleteButton.setOnAction(_ -> this.attemptDelete(item));
             buttonsBox.getChildren().add(deleteButton);
+        }
+        // Edit button
+        if (definePageName != null) {
+            Button editButton = createButton("Edit", "edit.png");
+            editButton.setOnAction(_ -> {
+                @SuppressWarnings("unchecked")
+                DefineController<T> controller = (DefineController<T>) Main.switchPage(this.definePageName);
+                assert controller != null;
+                controller.startEditing(item);
+            });
+            buttonsBox.getChildren().add(editButton);
         }
     }
 
