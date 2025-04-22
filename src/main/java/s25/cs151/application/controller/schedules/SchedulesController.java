@@ -10,19 +10,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import s25.cs151.application.Main;
+import s25.cs151.application.control.ActionsTableCell;
 import s25.cs151.application.model.Schedule;
 import s25.cs151.application.model.SemesterTimeSlot;
 import s25.cs151.application.utils.DatabaseHelper;
 import s25.cs151.application.model.Course;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Optional;
 
 public class SchedulesController {
     protected ObservableList<Schedule> schedules;
@@ -75,29 +70,10 @@ public class SchedulesController {
 
         // Setup actions buttons
         this.actions.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue()));
-        this.actions.setCellFactory(_ -> new TableCell<>() {
-            protected void updateItem(Schedule item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    return;
-                }
-
-                HBox buttonsBox = new HBox();
-                buttonsBox.setSpacing(5);
-                setGraphic(buttonsBox);
-                try {
-                    // Delete button
-                    Button deleteButton = new Button("", new ImageView(new Image(Objects.requireNonNull(Main.class.getResource("trash.png")).openStream())));
-                    deleteButton.setTooltip(new Tooltip("Delete"));
-                    deleteButton.setOnAction(_ -> attemptDeletion(item));
-                    buttonsBox.getChildren().add(deleteButton);
-                } catch (Exception e) {
-                    // Should never happen
-                }
-            }
-        });
+        this.actions.setCellFactory(_ -> new ActionsTableCell<>("Schedule", (s) -> {
+            DatabaseHelper.deleteSchedule(s);
+            this.schedules.remove(s);
+        }));
 
         // Create and track an observable list of schedules
         this.schedules = FXCollections.observableArrayList(DatabaseHelper.getAllSchedules());
@@ -109,28 +85,6 @@ public class SchedulesController {
         }, this.searchQuery));
         // Load data into the table
         this.table.setItems(filteredSchedules);
-    }
-
-    protected void attemptDeletion(Schedule schedule) {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Delete Schedule?");
-        confirmation.setHeaderText("Delete Schedule?");
-        confirmation.setContentText("Are you sure you want to delete the schedule for " + schedule.getName() + "?");
-        Optional<ButtonType> result = confirmation.showAndWait();
-
-        if (result.isEmpty() || result.get() != ButtonType.OK)
-            return;
-
-        try {
-            DatabaseHelper.deleteSchedule(schedule);
-            this.schedules.remove(schedule);
-        } catch (SQLException e) {
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Unknown Error");
-            error.setHeaderText("Unknown Error");
-            error.setContentText("An unknown error occurred while deleting the schedule.");
-            error.show();
-        }
     }
 
     @FXML
