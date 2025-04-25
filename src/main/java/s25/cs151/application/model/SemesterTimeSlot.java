@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class SemesterTimeSlot {
+public class SemesterTimeSlot implements IModel<SemesterTimeSlot> {
     protected int id;
 
     public final ObjectProperty<LocalTime> from = new SimpleObjectProperty<>(LocalTime.of(12, 0));
@@ -45,5 +45,9 @@ public class SemesterTimeSlot {
         return this.id == semesterTimeSlot.id &&
                 this.getFrom() == semesterTimeSlot.getFrom() &&
                 this.getTo().equals(semesterTimeSlot.getTo());
+    }
+
+    public SemesterTimeSlot copy() {
+        return new SemesterTimeSlot(this.id, this.getFrom(), this.getTo());
     }
 }

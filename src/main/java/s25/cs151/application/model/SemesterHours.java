@@ -6,7 +6,7 @@ import javafx.collections.FXCollections;
 import java.time.Year;
 import java.util.List;
 
-public class SemesterHours {
+public class SemesterHours implements IModel<SemesterHours> {
     public final ListProperty<String> allSeasons = new SimpleListProperty<>(FXCollections.observableArrayList("Spring", "Summer", "Fall", "Winter"));
     public final ObjectProperty<String> semester = new SimpleObjectProperty<>("Spring");
 
@@ -47,5 +47,9 @@ public class SemesterHours {
         return this.getSemester().equals(semesterHours.getSemester()) &&
                 this.getYear() == semesterHours.getYear() &&
                 this.getDays().equals(semesterHours.getDays());
+    }
+
+    public SemesterHours copy() {
+        return new SemesterHours(this.getSemester(), this.getYear(), this.getDays().toArray(new String[0]));
     }
 }

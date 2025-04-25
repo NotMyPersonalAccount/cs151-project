@@ -4,7 +4,7 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
-public class Schedule {
+public class Schedule implements IModel<Schedule> {
     protected int id;
 
     public final StringProperty name = new SimpleStringProperty("");
@@ -70,5 +70,9 @@ public class Schedule {
                 this.getCourse().equals(schedule.getCourse()) &&
                 this.getReason().equals(schedule.getReason()) &&
                 this.getComment().equals(schedule.getComment());
+    }
+
+    public Schedule copy() {
+        return new Schedule(this.id, this.getName(), this.getDate(), this.getTimeSlot(), this.getCourse(), this.getReason(), this.getComment());
     }
 }

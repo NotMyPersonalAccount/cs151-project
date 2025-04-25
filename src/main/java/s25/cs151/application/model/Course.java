@@ -3,7 +3,7 @@ package s25.cs151.application.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Course {
+public class Course implements IModel<Course> {
     public final StringProperty courseCode = new SimpleStringProperty("");
     public final StringProperty courseName = new SimpleStringProperty("");
     public final StringProperty sectionNumber = new SimpleStringProperty("");
@@ -40,5 +40,9 @@ public class Course {
         return this.getCourseCode().equals(course.getCourseCode()) &&
                 this.getCourseName().equals(course.getCourseName()) &&
                 this.getSectionNumber().equals(course.getSectionNumber());
+    }
+
+    public Course copy() {
+        return new Course(this.getCourseCode(), this.getCourseName(), this.getSectionNumber());
     }
 }
