@@ -7,6 +7,6 @@ import s25.cs151.application.utils.DatabaseHelper;
 
 public class DefineSchedulesController extends DefineController<Schedule> {
     public DefineSchedulesController() {
-        super(new Schedule(), Forms::createScheduleForm, DatabaseHelper::insertSchedule);
+        super(new Schedule(), Forms::createScheduleForm, DatabaseHelper::insertSchedule, DatabaseHelper::updateSchedule);
     }
 }

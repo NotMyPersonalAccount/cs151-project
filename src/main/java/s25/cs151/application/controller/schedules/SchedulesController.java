@@ -70,7 +70,7 @@ public class SchedulesController {
 
         // Setup actions buttons
         this.actions.setCellValueFactory(c -> new ReadOnlyObjectWrapper<>(c.getValue()));
-        this.actions.setCellFactory(_ -> new ActionsTableCell<>("Schedule", null, (s) -> {
+        this.actions.setCellFactory(_ -> new ActionsTableCell<>("Schedule", "define-schedules.fxml", (s) -> {
             DatabaseHelper.deleteSchedule(s);
             this.schedules.remove(s);
         }));

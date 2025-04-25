@@ -247,6 +247,30 @@ public class DatabaseHelper {
     }
 
     /**
+     * Updates a schedule in the database
+     */
+    public static void updateSchedule(Schedule oldSchedule, Schedule newSchedule) throws SQLException {
+        String updateQuery = "UPDATE schedules SET name = ?, date = ?, time_slot_id = ?, course_code = ?, course_name = ?, section_number = ?, reason = ?, comment = ? WHERE id = ?";
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                PreparedStatement stmt = conn.prepareStatement(updateQuery)
+        ) {
+            Course newCourse = newSchedule.getCourse();
+
+            stmt.setString(1, newSchedule.getName());
+            stmt.setString(2, newSchedule.getDate().toString());
+            stmt.setInt(3, newSchedule.getTimeSlot().getId());
+            stmt.setString(4, newCourse.getCourseCode());
+            stmt.setString(5, newCourse.getCourseName());
+            stmt.setString(6, newCourse.getSectionNumber());
+            stmt.setString(7, newSchedule.getReason());
+            stmt.setString(8, newSchedule.getComment());
+            stmt.setInt(9, oldSchedule.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    /**
      * Loads schedules from the database, sorted by date and time in ascending order.
      * @return a list of Schedule, or an empty list if the query fails.
      */
