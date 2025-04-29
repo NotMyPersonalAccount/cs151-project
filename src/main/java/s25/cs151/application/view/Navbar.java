@@ -1,4 +1,4 @@
-package s25.cs151.application.control;
+package s25.cs151.application.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +23,7 @@ public class Navbar extends VBox {
     protected Button time_slots;
 
     public Navbar() {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("navbar.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Navbar.class.getResource("navbar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

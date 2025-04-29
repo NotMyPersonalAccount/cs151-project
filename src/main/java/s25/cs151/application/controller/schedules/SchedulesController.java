@@ -11,7 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s25.cs151.application.Main;
-import s25.cs151.application.control.ActionsTableCell;
+import s25.cs151.application.view.ActionsTableCell;
 import s25.cs151.application.model.Schedule;
 import s25.cs151.application.model.SemesterTimeSlot;
 import s25.cs151.application.utils.DatabaseHelper;

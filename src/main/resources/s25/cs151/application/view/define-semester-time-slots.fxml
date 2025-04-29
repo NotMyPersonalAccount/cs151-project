@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import s25.cs151.application.control.DefinePage?>
+<?import s25.cs151.application.view.DefinePage?>
 
 <DefinePage modelName="Time Slot" parentPage="semester-time-slots.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.timeslots.DefineSemesterTimeSlotsController" fx:id="page" />

@@ -36,7 +36,7 @@ public class Main extends Application {
      */
     public static Object switchPage(String page) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(page));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view/" + page));
             Scene scene = appStage.getScene();
 
             // Create and set scene if one does not yet exist. Otherwise, update the existing scene.

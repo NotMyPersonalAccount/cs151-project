@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import s25.cs151.application.control.Navbar?>
+<?import s25.cs151.application.view.Navbar?>
 
 <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.timeslots.SemesterTimeSlotsController">
   <content>

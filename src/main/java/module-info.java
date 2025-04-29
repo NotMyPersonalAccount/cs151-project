@@ -20,8 +20,8 @@ module s25.cs151.application {
     opens s25.cs151.application.controller.schedules to javafx.fxml;
     exports s25.cs151.application.utils;
     opens s25.cs151.application.utils to javafx.fxml;
-    exports s25.cs151.application.control;
-    opens s25.cs151.application.control to javafx.fxml;
+    exports s25.cs151.application.view;
+    opens s25.cs151.application.view to javafx.fxml;
     exports s25.cs151.application.forms;
     opens s25.cs151.application.forms to javafx.fxml;
 }

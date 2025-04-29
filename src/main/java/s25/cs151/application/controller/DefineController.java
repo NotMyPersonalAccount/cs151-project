@@ -3,7 +3,7 @@ package s25.cs151.application.controller;
 import com.dlsc.formsfx.model.structure.Form;
 import javafx.fxml.FXML;
 import s25.cs151.application.Main;
-import s25.cs151.application.control.DefinePage;
+import s25.cs151.application.view.DefinePage;
 import s25.cs151.application.forms.IFormCreator;
 import s25.cs151.application.model.IModel;
 import s25.cs151.application.utils.IDatabaseExecutor;

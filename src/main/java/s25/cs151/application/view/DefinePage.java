@@ -1,4 +1,4 @@
-package s25.cs151.application.control;
+package s25.cs151.application.view;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
@@ -33,7 +33,7 @@ public class DefinePage extends ScrollPane {
     protected Runnable onSubmit;
 
     public DefinePage() {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(DefinePage.class.getResource("define-page.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 

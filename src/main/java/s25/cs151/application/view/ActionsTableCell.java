@@ -1,4 +1,4 @@
-package s25.cs151.application.control;
+package s25.cs151.application.view;
 
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -86,7 +86,7 @@ public class ActionsTableCell<T extends IModel<T>> extends TableCell<T, T> {
         button.setTooltip(new Tooltip(tooltip));
 
         try (
-                InputStream imageStream = Main.class.getResourceAsStream(imageFileName);
+                InputStream imageStream = ActionsTableCell.class.getResourceAsStream(imageFileName);
         ) {
             assert imageStream != null;
             button.setGraphic(new ImageView(new Image(imageStream)));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import s25.cs151.application.control.DefinePage?>
+<?import s25.cs151.application.view.DefinePage?>
 
 <DefinePage modelName="Semester Hour" parentPage="semester-hours.fxml" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s25.cs151.application.controller.hours.DefineSemesterHoursController" fx:id="page" />
